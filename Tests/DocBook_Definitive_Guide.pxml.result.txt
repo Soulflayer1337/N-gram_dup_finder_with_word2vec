@@ -1,0 +1,472 @@
+========================= CLASS #1 =============================
+(0) <0> {0} [313]: <?xml version="1.0" encoding="utf-8" ?> <plainxml>$Date: 2001-08-02 14:27:50 +0400 (Чт, 02 авг 2001) $ $Revision: 546 $ Installation Installing the DocBook DTD DocBook DTD installation This appendix describes how to install the DocBook DTD on your system so that popular command-line tools like SP can use it.
+(2) <2> {440} [497]: This appendix describes the installation of DocBook V3.1.
+(83) <83> {12305} [12518]: $Date: 2001-08-02 14:27:50 +0400 (Чт, 02 авг 2001) $ $Revision: 546 $ DocBook and DocBook DTD XML XML DocBook and SGML XML and XML SGML, processing , the Extensible Markup Language , is a simple dialect of .
+(2229) <2229> {321662} [321896]: $Date: 2001-08-02 14:27:50 +0400 (Чт, 02 авг 2001) $ $Revision: 546 $ Glossary attribute attributes elements attributes Attributes augment the element on which they appear; they also provide additional information about the element.
+*****************************************************************
+========================= CLASS #2 =============================
+(13) <13> {2290} [2385]: (They aren&#39;t distributed with DocBook because they aren&#39;t maintained by the DocBook TC.
+(14) <14> {2386} [2417]: They&#39;re maintained by ISO.)
+(106) <106> {15578} [15602]: They&#39;re all illegal.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #3 =============================
+(15) <15> {2418} [2503]: If you&#39;ve installed other SGML DTDs or tools, they may already be on your system.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #4 =============================
+(26) <26> {3862} [3981]: Finding the Catalog If you&#39;ve already got some other SGML DTDs installed, you probably already have a catalog file.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1030) <1030> {150410} [150460]: Actually, we&#39;ve already told you how to do it.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #5 =============================
+(34) <41> {5082} [7211]: If you don&#39;t wish to set the environment variable, you can explicitly pass the name of each catalog to the SP application with the -c option, like this: nsgmls -c ./catalog -c n:/share/sgml/catalog -c othercatalogs ... Fixing the Catalog catalog files mapping to system The basic format of each entry in the DocBook catalog is: PUBLIC &quot;some public id&quot; &quot;some filename&quot; What you have to do is change each of the some filenames to point to the actual name of the file on your system. filenames catalog file Filenames should be supplied using absolute filenames, or paths relative to the location of the catalog file. To continue with the example above, let&#39;s say that you&#39;ve got: DocBook in /share/sgml/docbk30/ , The ISO entities in /share/sgml/entities/8879/ , and Your catalog in /share/sgml/catalog Then you would change the catalog entry for the DTD to be: PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot; &quot;docbk30/docbook.dtd&quot; You would change the catalog entry for the general technical character entities to: PUBLIC &quot;ISO 8879:1986//ENTITIES General Technical//EN&quot; &quot;entities/8879/iso-tech.gml&quot; And similarly for the other public identifiers used by DocBook. In each case, the filename specified for the public identifier should be the name of the file on your system, specified as an absolute filename, or relative to the location of the catalog in which it occurs. Mapping System Identifiers for XML XML system identifiers mapping system identifiers XML mapping for Since XML documents are required to have system identifiers, but are not required to have public identifiers, it&#39;s likely that some of the documents you want to process will only have system identifiers. It turns out that you can still take advantage of the catalog in this case. The SYSTEM directive allows you to map the system identifier used in the document to the actual location on your system. Suppose that you work with a colleague who uses the system identifier file:///c:/sgml/db3xml/db3xml.dtd to identify the XML version of DocBook on her system.
+(1407) <1414> {206424} [208218]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document. This representation is the set of all the information items encountered: the information set of the document. The W3C XML Core Working Group is in the process of defining what an Information Set contains. The other schema languages are defined not in terms of the sequence of characters in the file but in terms of the information set of the document. They have to work this way because the Recommendation says what an document is and they all want to work on top of . So what, you might ask? Well, it turns out that this has at least one very significant implication: there&#39;s no way for these languages to provide support for entity declarations. An entity, like &amp;ora; as a shortcut for O&#39;Reilly &amp; Associates or &amp;eacute; as a mnemonic for , is a feature of the character stream seen by the parser, it doesn&#39;t exist in the information set of valid documents.
+*****************************************************************
+========================= CLASS #6 =============================
+(43) <43> {7287} [7551]: The following entry in your catalog will do the trick: SYSTEM &quot;http://docbook.org/docbook/xml/1.4/db3xml.dtd&quot; &quot;/share/sgml/db3xml/db3xml.dtd&quot; Unfortunately, this technique only works with applications that read and understand catalog files.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #7 =============================
+(45) <46> {7788} [8228]: Create a small test document, like this: &lt;!DOCTYPE chapter PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot;&gt; &lt;chapter&gt;&lt;title&gt;Test Chapter&lt;/title&gt; &lt;para&gt; This is a test document. &lt;/para&gt; &lt;/chapter&gt; and run the following command: nsgmls -sv test.sgm declarations passing explicitly DTDDECL warnings (unsupported) If the nsgmls command produces errors, review your catalog and resolve the errors.
+(632) <633> {90789} [91485]: This is valid: &lt;sect1&gt;&lt;title&gt;...&lt;/title&gt; &lt;sect2&gt;&lt;title&gt;...&lt;/title&gt; &lt;sect3&gt;&lt;title&gt;...&lt;/title&gt; ... &lt;/sect3&gt; &lt;/sect2&gt; &lt;/sect1&gt; This is not: &lt;sect1&gt;&lt;title&gt;...&lt;/title&gt; &lt;sect3&gt;&lt;title&gt;...&lt;/title&gt; ... &lt;/sect3&gt; &lt;/sect1&gt; parsers validating validation SGML documents DTDs validating SGML documents against instance (DocBook document) Because an / document has an associated that describes the valid, logical structures of the document, you can test the logical structure of any particular document against the . This process is performed by a parser .
+(857) <858> {123891} [123988]: So is &lt;&gt;this&lt;/emphasis&gt;. &lt;/para&gt; Both important and this are emphasized.
+(1654) <1655> {241847} [242470]: &lt;/para&gt; &lt;/preface&gt; &lt;chapter lang=&quot;usen&quot;&gt;&lt;title&gt;English&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;fr&quot;&gt;&lt;title&gt;French&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;dege&quot;&gt;&lt;title&gt;Deutsch&lt;/title&gt; ... &lt;/chapter&gt; &lt;/book&gt; The standard stylesheets render the Preface as something like this: There are three chapters in this book: Chapter 1, Chapter 2, and Chapter 3. With %gentext-use-xref-language% turned on, it would render like this: There are are three chapters in this book: Chapter 1, Chapitre 2, and Kapitel 3.
+*****************************************************************
+========================= CLASS #8 =============================
+(80) <80> {11949} [12040]: If not, and the preceding test succeeded, something has gone wrong contact the maintainer .
+(82) <82> {12213} [12304]: If not, and the preceding test succeeded, something has gone wrong contact the maintainer .
+*****************************************************************
+========================= CLASS #9 =============================
+(94) <94> {13716} [14292]: System Identifiers system identifiers SGML public identifiers SGML parameter entities SGML declarations declarations document type and parameter entity (SGML) It is common for instances to use only a public identifier in document type and parameter entity declarations: requires a system identifier: catalog files system identifiers, resolving URN XML system identifiers, future public identifiers system identifiers, overriding If you&#39;re used to using catalog files to resolve system identifiers, you may be dismayed to learn that system identifiers are required.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #10 =============================
+(109) <109> {16001} [16119]: Some processing environments are going to ignore the doctype declaration in your document, even if it&#39;s present.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #11 =============================
+(128) <128> {18808} [19175]: Para element PARA vs. (XML) The result will be something like this: No #CONREF Attributes #CONREF attributes Startref attribute IndexTerm element OtherTerm attribute GlossSee element GlossSeeAlso element empty tags #CONREF attributes The StartRef attribute on indexterm and the OtherTerm attribute on GlossSee and GlossSeeAlso are #CONREF attributes.
+(164) <164> {25092} [25124]: No #CONREF attributes allowed.
+*****************************************************************
+========================= CLASS #12 =============================
+(140) <140> {20877} [21000]: The result will be something like this: No Data Attributes on Notations They&#39;re not allowed in , so don&#39;t add any.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(759) <759> {109546} [109586]: In , they&#39;re only allowed in the .
+(981) <981> {142965} [143017]: In , there&#39;s no constraint on what they can be.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #13 =============================
+(141) <141> {21002} [21315]: data attributes, notations (XML prohibiting) No Attribute Value Specifications on Entity Declarations attributes values specifying (entity declarations) declarations entities attribute values, prohibiting (XML) entities declarations, attribute values (XML) They&#39;re not allowed in , so don&#39;t add any.
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(759) <759> {109546} [109586]: In , they&#39;re only allowed in the .
+(981) <981> {142965} [143017]: In , there&#39;s no constraint on what they can be.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #14 =============================
+(156) <156> {23776} [24014]: admonitions exclusions (DocBook) acronyms (DocBook XML) Removing these exclusions from DocBook means that it is now valid, in the sense, to do some things that don&#39;t make a lot of sense (like put a Footnote in a Footnote ).
+(534) <534> {77472} [77495]: What&#39;s on the CD ?
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #15 =============================
+(236) <236> {36578} [36705]: References and Technical Notes on the Web Entity Management OASIS Technical Resolution 9401:1997 (Amendment 2 to TR 9401) .
+(938) <938> {137100} [137170]: See OASIS Technical Resolution 9401:1997 (Amendment 2 to TR 9401).
+*****************************************************************
+========================= CLASS #16 =============================
+(240) <240> {36909} [36999]: Exchange Table Model Document Type Definition OASIS Technical Resolution TR 9503:1995 .
+(241) <241> {37001} [37172]: Table Model Document Type Definition OASIS Technical Memorandum TM 9502:1995 XML Exchange Table Model Document Type Definition OASIS Technical Memorandum TM 9901:1999 .
+*****************************************************************
+========================= CLASS #17 =============================
+(248) <248> {37637} [37712]: The Specification The W3C technical recommendation that defines 1.0.
+(249) <249> {37713} [37789]: Namespaces in The W3C technical recommendation that defines namespaces.
+*****************************************************************
+========================= CLASS #18 =============================
+(264) <264> {39841} [39938]: $Date: 2003-06-04 16:22:51 +0400 (Ср, 04 июн 2003) $ $Revision: 2902 $ What&#39;s on the CD-ROM ?
+(534) <534> {77472} [77495]: What&#39;s on the CD ?
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #19 =============================
+(383) <383> {54576} [54656]: Any member of the public is a licensee, and is addressed as &quot;you&quot;.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #20 =============================
+(396) <396> {57536} [57757]: For works in formats which do not have any title page as such, &quot;Title Page&quot; means the text near the most prominent appearance of the work&#39;s title, preceding the beginning of the body of the text.
+(1119) <1119> {163575} [163616]: Informal equations don&#39;t have titles.
+*****************************************************************
+========================= CLASS #21 =============================
+(421) <421> {62447} [62665]: Preserve the section entitled &quot;History&quot;, and its title, and add to it an item stating at least the title, year, new authors, and publisher of the Modified Version as given on the Title Page.
+(424) <424> {63187} [63242]: These may be placed in the &quot;History&quot; section.
+*****************************************************************
+========================= CLASS #22 =============================
+(422) <422> {62667} [62947]: If there is no section entitled &quot;History&quot; in the Document, create one stating the title, year, authors, and publisher of the Document as given on its Title Page, then add an item describing the Modified Version as stated in the previous sentence.
+(424) <424> {63187} [63242]: These may be placed in the &quot;History&quot; section.
+*****************************************************************
+========================= CLASS #23 =============================
+(426) <426> {63447} [63718]: In any section entitled &quot;Acknowledgements&quot; or &quot;Dedications&quot;, preserve the section&#39;s title, and preserve in the section all the substance and tone of each of the contributor acknowledgements and/or dedications given therein.
+(1119) <1119> {163575} [163616]: Informal equations don&#39;t have titles.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #24 =============================
+(449) <449> {68363} [68648]: If the Cover Text requirement of section 3 is applicable to these copies of the Document, then if the Document is less than one quarter of the entire aggregate, the Document&#39;s Cover Texts may be placed on covers that surround only the Document within the aggregate.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #25 =============================
+(465) <466> {71074} [71546]: Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.1 or any later version published by the Free Software Foundation; with the Invariant Sections being LIST THEIR TITLES, with the Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST. A copy of the license is included in the section entitled &quot;GNU Free Documentation License&quot;.
+(2301) <2302> {333244} [333484]: Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.1 or any later version published by the Free Software Foundation. A copy of the license is included in .
+*****************************************************************
+========================= CLASS #26 =============================
+(472) <473> {72344} [72502]: That&#39;s the difference between 2.0.13 and 2.0.14. This change log is slightly abbreviated; there were hundreds of uninteresting changes to generated files.
+(475) <476> {72616} [72774]: That&#39;s the difference between 2.0.11 and 2.0.12. This change log is slightly abbreviated; there were hundreds of uninteresting changes to generated files.
+*****************************************************************
+========================= CLASS #27 =============================
+(494) <494> {74474} [74567]: After you&#39;ve written a document, how can you tell if it really conforms to the DocBook ?
+(496) <496> {74602} [74655]: After you&#39;ve written one, what do you do with it?
+*****************************************************************
+========================= CLASS #28 =============================
+(494) <494> {74474} [74567]: After you&#39;ve written a document, how can you tell if it really conforms to the DocBook ?
+(496) <496> {74602} [74655]: After you&#39;ve written one, what do you do with it?
+*****************************************************************
+========================= CLASS #29 =============================
+(495) <495> {74568} [74601]: How to publish DocBook documents.
+(522) <522> {76670} [76703]: How to publish DocBook documents.
+*****************************************************************
+========================= CLASS #30 =============================
+(508) <508> {75390} [75529]: We outline all of the points that you&#39;ll need to consider as you or your organization contemplate for authoring, publishing, or both.
+(759) <759> {109546} [109586]: In , they&#39;re only allowed in the .
+(981) <981> {142965} [143017]: In , there&#39;s no constraint on what they can be.
+*****************************************************************
+========================= CLASS #31 =============================
+(534) <534> {77472} [77495]: What&#39;s on the CD ?
+(560) <560> {80298} [80337]: It&#39;s a better book because of them.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #32 =============================
+(565) <565> {81404} [81483]: If you&#39;re already familiar with or , you only need to skim this chapter.
+(567) <567> {81614} [81638]: That&#39;s covered here.
+(569) <569> {81725} [81764]: That&#39;s covered in the next chapter.
+(1030) <1030> {150410} [150460]: Actually, we&#39;ve already told you how to do it.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #33 =============================
+(582) <582> {83088} [83282]: is intended to alleviate compatibility problems with browser software; it&#39;s a new, easier version of the standard rules that govern the markup itself, or, in other words, a new version of .
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #34 =============================
+(590) <590> {84081} [84184]: Nevertheless, it&#39;s not unreasonable to do your authoring in and your online publishing in or .
+(591) <591> {84185} [84256]: By the same token, it&#39;s not unreasonable to do your authoring in .
+*****************************************************************
+========================= CLASS #35 =============================
+(599) <599> {85705} [85865]: That&#39;s because the markup does not specify many aspects of a document&#39;s appearance, although it does specify many aspects of a document&#39;s structure.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #36 =============================
+(607) <607> {87089} [87397]: In DocBook, a top-level section is sect1 , so the title of a top-level section named My First-Level Header would be identified like this: &lt;sect1&gt;&lt;title&gt;My First-Level Header&lt;/title&gt; Note the following features of this markup: Clarity A title begins with title and ends with title .
+(632) <632> {90789} [91444]: This is valid: &lt;sect1&gt;&lt;title&gt;...&lt;/title&gt; &lt;sect2&gt;&lt;title&gt;...&lt;/title&gt; &lt;sect3&gt;&lt;title&gt;...&lt;/title&gt; ... &lt;/sect3&gt; &lt;/sect2&gt; &lt;/sect1&gt; This is not: &lt;sect1&gt;&lt;title&gt;...&lt;/title&gt; &lt;sect3&gt;&lt;title&gt;...&lt;/title&gt; ... &lt;/sect3&gt; &lt;/sect1&gt; parsers validating validation SGML documents DTDs validating SGML documents against instance (DocBook document) Because an / document has an associated that describes the valid, logical structures of the document, you can test the logical structure of any particular document against the .
+*****************************************************************
+========================= CLASS #37 =============================
+(649) <649> {93958} [94076]: It&#39;s irrelevant; whatever presentation is chosen, the sources will be transformed automatically into that style.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #38 =============================
+(675) <675> {97314} [97585]: Elements and Attributes elements attributes attributes elements and elements attributes attributes empty elements end tags empty elements, not requiring cross references entities SGML/XML markup / markup consists primarily of elements , attributes , and entities .
+(2240) <2240> {323235} [323292]: Empty elements have only a start tag and have no content.
+*****************************************************************
+========================= CLASS #39 =============================
+(679) <679> {98031} [98107]: In , this is written as &lt;xref/&gt; , as we&#39;ll see in the section .
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #40 =============================
+(698) <698> {100896} [100995]: We&#39;ll refer to the different types of entities as the need arises in our discussion of DocBook.
+(1294) <1294> {180930} [180960]: Let&#39;s talk about leopards.
+*****************************************************************
+========================= CLASS #41 =============================
+(710) <710> {102545} [102640]: That&#39;s perfectly valid as long as the reference isn&#39;t directly or indirectly recursive.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #42 =============================
+(717) <717> {103555} [104125]: At the top of your document, you would include entity declarations to reference the four files: &lt;!ENTITY ch01 SYSTEM &quot;ch01.sgm&quot;&gt; &lt;!ENTITY ch02 SYSTEM &quot;ch02.sgm&quot;&gt; &lt;!ENTITY ch03 SYSTEM &quot;ch03.sgm&quot;&gt; &lt;!ENTITY ch04 SYSTEM &quot;ch04.sgm&quot;&gt; Your Book now consists simply of references to the entities: &lt;book&gt; &amp;ch01; &amp;ch02; &amp;ch03; &amp;ch04; &lt;/book&gt; unparsed entities notations (unparsed entities) Sometimes it&#39;s useful to reference external files that don&#39;t contain document text.
+(857) <857> {123891} [123927]: So is &lt;&gt;this&lt;/emphasis&gt;.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #43 =============================
+(721) <721> {104595} [104817]: Instead, they must be used as entity attributes to elements: &lt;graphic entityref=&quot;tree&quot;&gt;&lt;/graphic&gt; Conversely, you cannot use entities declared without a notation as the value of an entity attribute.
+(857) <857> {123891} [123927]: So is &lt;&gt;this&lt;/emphasis&gt;.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #44 =============================
+(766) <766> {110674} [110873]: &lt;/para&gt; ]]&gt; When you&#39;re ready to print the final version, simply change the draft parameter entity declaration: &lt;!ENTITY % draft &quot;IGNORE&quot;&gt; and publish the document.
+(858) <858> {123928} [123988]: &lt;/para&gt; Both important and this are emphasized.
+*****************************************************************
+========================= CLASS #45 =============================
+(813) <813> {116211} [116298]: It&#39;s an overview of all the kinds of markup that are possible in DocBook documents.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #46 =============================
+(819) <819> {116849} [116910]: The following sections describe the features of the prologue.
+(872) <872> {126298} [126361]: The following sections describe the features of the prologue.
+*****************************************************************
+========================= CLASS #47 =============================
+(826) <826> {118101} [118290]: tutorial, SGML Declaration Wayne Wholer has written an excellent tutorial on the Declaration; if you&#39;re interested in more details, see http://www.oasis-open.org/cover/wlw11.html .
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #48 =============================
+(827) <827> {118292} [118537]: A Document Type Declaration SGML document type declaration document type declaration SGML documents declarations document type declaration declarations document type declaration SGML All documents must begin with a document type declaration.
+(877) <877> {127024} [127261]: A Document Type Declaration declarations document type declaration XML XML document type declaration document type declaration XML documents DocBook DTD XML document type declaration Strictly speaking, documents don&#39;t require a .
+*****************************************************************
+========================= CLASS #49 =============================
+(831) <857> {119127} [123927]: An Internal Subset internal subset SGML document declarations It&#39;s also possible to provide additional declarations in a document by placing them in the document type declaration: &lt;!DOCTYPE book PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot; [ &lt;!ENTITY nwalsh &quot;Norman Walsh&quot;&gt; &lt;!ENTITY chap1 SYSTEM &quot;chap1.sgm&quot;&gt; &lt;!ENTITY chap2 SYSTEM &quot;chap2.sgm&quot;&gt; ]&gt; external subset SGML document declarations public identifiers SGML system identifiers SGML These declarations form what is known as the internal subset . The declarations stored in the file referenced by the public or system identifier in the DOCTYPE declaration is called the external subset and it is technically optional. It is legal to put the in the internal subset and to have no external subset, but for a as large as DocBook that wouldn&#39;t make much sense. parsing order The internal subset is parsed first and, if multiple declarations for an entity occur, the first declaration is used. Declarations in the internal subset override declarations in the external subset. The Document (or Root) Element elements root element root element placement Although comments and processing instructions may occur between the document type declaration and the root element, the root element usually immediately follows the document type declaration: &lt;!DOCTYPE book PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot; [ &lt;!ENTITY nwalsh &quot;Norman Walsh&quot;&gt; &lt;!ENTITY chap1 SYSTEM &quot;chap1.sgm&quot;&gt; &lt;!ENTITY chap2 SYSTEM &quot;chap2.sgm&quot;&gt; ]&gt; &lt;book&gt; &amp;chap1; &amp;chap2; &lt;/book&gt; You cannot place the root element of the document in an external entity. Typing an Document Emacs text editor vi text editor SGML text editors, entering through text editors SGML, entering If you are entering using a text editor such as Emacs or vi , there are a few things to keep in mind. Many of these things are influenced by the declaration in use. For the purpose of this discussion, we assume you are using the standard DocBook declaration. Using a structured text editor designed for hides most of these issues. elements case sensitivity (DocBook) case sensitivity elements (DocBook) attributes case sensitivity (DocBook) case sensitivity attributes (DocBook) DocBook element and attribute names are not case-sensitive. There&#39;s no difference between Para and pArA . Entity names are case-sensitive, however. SGML XML/SGML compatibility case sensitivity XML SGML/XML compatibility case sensitivity, attributes and elements compatibility, SGML/XML conversion case sensitivity, attribute and element names If you are interested in future compatibility, input all element and attribute names strictly in lowercase. SGML XML/SGML compatibility quotes, attribute values XML SGML/XML compatibility quotes, attribute values quotes attribute values spaces and punctuation characters attributes values quoting spaces, quoting (attribute values) punctuation characters, quoting (attribue values) If attribute values contain spaces or punctuation characters, you must quote them. You are not required to quote attribute values if they consist of a single word or number, although it is not wrong to do so. straight single quotes (attribute values) straight double quotes (attribute values) curly quotes (attribute values) When quoting attribute values, you can use either a straight single quote (&#39;), or a straight double quote (&quot;). Don&#39;t use the curly quotes ( and ) in your editing tool. compatibility, SGML/XML conversion attribute values, quoting If you are interested in future compatibility, always quote all attribute values. SGML XML/SGML compatibility empty tags XML SGML/XML compatibility empty tags compatibility, SGML/XML conversion empty tags tags empty empty tags Several forms of markup minimization are allowed, including empty tags. Instead of typing the entire end tag for an element, you can type simply &lt;/&gt; . For example: &lt;para&gt; This is &lt;emphasis&gt;important&lt;/&gt;: never stick the tines of a fork in an electrical outlet. &lt;/para&gt; You can use this technique for any and every tag, but it will make your documents very hard to understand and difficult to debug if you introduce errors. It is best to use this technique only for inline elements containing a short string of text. start tags empty, using (SGML documents) parsing empty start tags, problems with Empty start tags are also possible, but may be even more confusing. For the record, if you encounter an empty start tag, the parser uses the element that ended last: &lt;para&gt; This is &lt;emphasis&gt;important&lt;/emphasis&gt;. So is &lt;&gt;this&lt;/emphasis&gt;.
+(884) <910> {128397} [133004]: An Internal Subset declarations document type declaration XML document type declaration internal subset internal subset XML document type declarations XML document type declarations internal subset It&#39;s also possible to provide additional declarations in a document by placing them in the document type declaration: &lt;?xml version=&#39;1.0&#39;?&gt; &lt;!DOCTYPE book PUBLIC &quot;-//Norman Walsh//DTD DocBk XML V3.1.4/EN&quot; &quot;http://nwalsh.com/docbook/xml/3.1.4/db3xml.dtd&quot; [ &lt;!ENTITY nwalsh &quot;Norman Walsh&quot;&gt; &lt;!ENTITY chap1 SYSTEM &quot;chap1.sgm&quot;&gt; &lt;!ENTITY chap2 SYSTEM &quot;chap2.sgm&quot;&gt; ]&gt; These declarations form what is known as the internal subset. The declarations stored in the file referenced by the public or system identifier in the DOCTYPE declaration is called the external subset, which is technically optional. It is legal to put the in the internal subset and to have no external subset, but for a as large as DocBook, that would make very little sense. parsing order XML document declarations The internal subset is parsed first in and, if multiple declarations for an entity occur, the first declaration is used. Declarations in the internal subset override declarations in the external subset. The Document (or Root) Element root element elements root element Although comments and processing instructions may occur between the document type declaration and the root element, the root element usually immediately follows the document type declaration: &lt;?xml version=&#39;1.0&#39;?&gt; &lt;!DOCTYPE book PUBLIC &quot;-//Norman Walsh//DTD DocBk XML V3.1.4//EN&quot; &quot;http://nwalsh.com/docbook/xml/3.1.4/db3xml.dtd&quot; [ &lt;!ENTITY nwalsh &quot;Norman Walsh&quot;&gt; &lt;!ENTITY chap1 SYSTEM &quot;chap1.sgm&quot;&gt; &lt;!ENTITY chap2 SYSTEM &quot;chap2.sgm&quot;&gt; ]&gt; &lt;book&gt;...&lt;/book&gt; The important point is that the root element must be physically present immediately after the document type declaration. You cannot place the root element of the document in an external entity. Typing an Document text editors If you are entering using a text editor such as Emacs or vi , there are a few things to keep in mind. Using a structured text editor designed for hides most of these issues. case sensitivity markup markup case sensitivity compatibility, SGML/XML conversion XML markup, case-sensitivity In , all markup is case-sensitive. In the version of DocBook, you must always type all element, attribute, and entity names in lowercase. You are required to quote all attribute values in . quotes attribute values When quoting attribute values, you can use either a straight single quote (&#39;), or a straight double quote (&quot;). Don&#39;t use the curly quotes ( and ) in your editing tool. empty elements markup syntax Empty elements in are marked with a distinctive syntax: &lt;xref/&gt; . XML question marks (? ), processing instructions Processing instructions in begin and end with a question mark: &lt;?pitarget data?&gt; . XML interoperability, SGML and XML was designed to be served, received, and processed over the Web. Two of its most important design principles are ease of implementation and interoperability with both and . SGML XML/SGML compatibility markup minimization, problems SGML markup minimization XML/SGML compatibility XML markup minimization SGML/XML compatibility XML SGML/XML compatibility markup minization, problems The markup minimization features in documents make it more difficult to process, and harder to write a parser to interpret it; these minimization features also run counter to the design principles named above. As a result, does not support them. Luckily, a good authoring environment can offer all of the features of markup minimization without interfering with the interoperability of documents. And because tools are easier to write, it&#39;s likely that good, inexpensive authoring environments will be available eventually. and Markup Considerations in This Book DocBook DTD markup considerations, SGML vs. XML Conceptually, almost everything in this book applies equally to and . But because DocBook V3.1 is an , we naturally tend to use conventions in our writing. If you&#39;re primarily interested in , there are just a few small details to keep in mind. case sensitivity XML vs. SGML SGML case sensitivity elements case sensitivity (XML) is case-sensitive, while the version of DocBook is not.
+*****************************************************************
+========================= CLASS #50 =============================
+(869) <869> {125962} [126087]: We&#39;ve included one on the CD , but it hasn&#39;t been officially adopted by the OASIS DocBook Technical Committee yet.
+(1294) <1294> {180930} [180960]: Let&#39;s talk about leopards.
+*****************************************************************
+========================= CLASS #51 =============================
+(870) <870> {126088} [126213]: If you&#39;re interested in the technical details, , describes the specific differences between and versions of DocBook.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #52 =============================
+(874) <874> {126489} [126805]: Unlike the declaration, which is a grab bag of features, the declaration identifies a few simple aspects of the document: &lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt; Identifying the version of ensures that future changes to the specification will not alter the semantics of this document.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #53 =============================
+(880) <880> {127507} [128048]: A typical doctype declaration for a DocBook document looks like this: &lt;?xml version=&#39;1.0&#39;?&gt; &lt;!DOCTYPE book PUBLIC &quot;-//Norman Walsh//DTD DocBk XML V3.1.4//EN&quot; &quot;http://nwalsh.com/docbook/xml/3.1.4/db3xml.dtd&quot;&gt; external declarations (XML) public identifiers XML documents system identifiers XML This declaration indicates that the root element will be book and that the used will be the one indentified by the public identifier -//Norman Walsh//DTD DocBk XML V3.1.4//EN .
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #54 =============================
+(912) <912> {133213} [133363]: empty elements start tags, XML vs. SGML start tags empty element Empty element start tags in are marked with a distinctive syntax: &lt;xref/&gt; .
+(2240) <2240> {323235} [323292]: Empty elements have only a start tag and have no content.
+*****************************************************************
+========================= CLASS #55 =============================
+(913) <913> {133365} [133475]: In , the trailing slash is not present, so some of our examples need slight revisions to be valid elements.
+(916) <916> {133688} [133806]: In , the trailing question mark is not present, so some of our examples need slight revisions to be valid elements.
+*****************************************************************
+========================= CLASS #56 =============================
+(917) <917> {133808} [134159]: system identifiers XML URI requirement Uniform Resource Indicators URI public identifiers DocBook DTD examples Generally we use public identifiers in examples, but whenever system identifiers are used, don&#39;t forget that system identifiers must be Uniform Resource Indicators ( URI s), in which system identifiers are usually simple filenames.
+(926) <926> {135408} [135470]: In , it must point with a Uniform Resource Indicator ( URI ).
+*****************************************************************
+========================= CLASS #57 =============================
+(935) <935> {136823} [136866]: They&#39;re simply a method of indirection.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #58 =============================
+(961) <961> {140752} [140898]: It&#39;s also not uncommon to see the names of individuals used as the owner-identifier, although clearly this may introduce collisions over time.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #59 =============================
+(980) <980> {142566} [142964]: FPI ISO Latin 1 character set, examples For example, the FPI for the ISO Latin 1 character set is: -//ISO 8879-1986//ENTITIES Added Latin 1//EN A reasonable FPI for an version of this character set is: -//ISO 8879-1986//ENTITIES Added Latin 1//EN//XML System Identifiers system identifiers URI XML system identifiers System identifiers are usually filenames on the local system.
+(2279) <2279> {330159} [330198]: Usually a filename on the local system.
+*****************************************************************
+========================= CLASS #60 =============================
+(993) <993> {144263} [144911]: PUBLIC PUBLIC keyword The PUBLIC keyword maps public identifiers to system identifiers: PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot; &quot;docbook/3.1/docbook.dtd&quot; SYSTEM SYSTEM keyword The SYSTEM keyword maps system identifiers to system identifiers: SYSTEM &quot;http://nwalsh.com/docbook/xml/1.3/db3xml.dtd&quot; &quot;docbook/xml/1.3/db3xml.dtd&quot; SGMLDECL SGMLDECL keyword The SGMLDECL keyword identifies the system identifier of the Declaration that should be used: SGMLDECL &quot;docbook/3.1/docbook.dcl&quot; DTDDECL DTDDECL Like SGMLDECL , DTDDECL identifies the Declaration that should be used.
+(994) <994> {144913} [145153]: DTDDECL associates a declaration with a particular public identifier for a : DTDDECL &quot;-//OASIS//DTD DocBook V3.1//EN&quot; &quot;docbook/3.1/docbook.dcl&quot; Unfortunately, it is not supported by the free tools that are available.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #61 =============================
+(1004) <1004> {146530} [146851]: The DELEGATE entry specifies a partial public identifier and an alternate catalog: DELEGATE &quot;-//OASIS&quot; &quot;/usr/sgml/oasis/catalog&quot; initial substring matches (public identifiers) public identifiers partial (initial substring matches) Partial public identifers are simply initial substring matches.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #62 =============================
+(1015) <1015> {148311} [148376]: A few notes: It&#39;s not uncommon to have several catalog files.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #63 =============================
+(1029) <1029> {150238} [150407]: Before we begin, and while the subject of the internal subset is fresh in your mind, let&#39;s take a quick look at how to break documents into separate physical chunks.
+(1294) <1294> {180930} [180960]: Let&#39;s talk about leopards.
+*****************************************************************
+========================= CLASS #64 =============================
+(1032) <1032> {150788} [151557]: So, if you&#39;ve got a book that consists of three chapters and two appendixes, you might create a file called book.sgm , which looks like this: &lt;!DOCTYPE book PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot; [ &lt;!ENTITY chap1 SYSTEM &quot;chap1.sgm&quot;&gt; &lt;!ENTITY chap2 SYSTEM &quot;chap2.sgm&quot;&gt; &lt;!ENTITY chap3 SYSTEM &quot;chap3.sgm&quot;&gt; &lt;!ENTITY appa SYSTEM &quot;appa.sgm&quot;&gt; &lt;!ENTITY appb SYSTEM &quot;appb.sgm&quot;&gt; ]&gt; &lt;book&gt;&lt;title&gt;My First Book&lt;/title&gt; &amp;chap1; &amp;chap2; &amp;chap3; &amp;appa; &amp;appb; &lt;/book&gt; declarations document type declaration document type declaration divisions of documents You can then write the chapters and appendixes conveniently in separate files.
+(1034) <1034> {151636} [151810]: For example, Chapter 1 might begin like this: &lt;chapter id=&quot;ch1&quot;&gt;&lt;title&gt;My First Chapter&lt;/title&gt; &lt;para&gt;My first paragraph.&lt;/para&gt; ...
+(1035) <1035> {151814} [152081]: But it should not begin with its own document type declaration: &lt;!DOCTYPE chapter PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot;&gt; &lt;chapter id=&quot;ch1&quot;&gt;&lt;title&gt;My First Chapter&lt;/title&gt; &lt;para&gt;My first paragraph.&lt;/para&gt; ...
+(1318) <1318> {185046} [185916]: For instance, if you have this markup in your document: &lt;glossterm linkend=&quot;xml&quot;&gt;Extensible Markup Language&lt;/glossterm&gt; is a new standard glossaries example your glossary might look like this: &lt;!DOCTYPE glossary PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot;&gt; &lt;glossary&gt;&lt;title&gt;Example Glossary&lt;/title&gt; &lt;glossdiv&gt;&lt;title&gt;E&lt;/title&gt; &lt;glossentry id=&quot;xml&quot;&gt;&lt;glossterm&gt;Extensible Markup Language&lt;/glossterm&gt; &lt;acronym&gt;XML&lt;/acronym&gt; &lt;glossdef&gt; &lt;para&gt;Some reasonable definition here.&lt;/para&gt; &lt;glossseealso otherterm=&quot;sgml&quot;&gt; &lt;/glossdef&gt; &lt;/glossentry&gt; &lt;/glossdiv&gt; Note that the GlossTerm tag reappears in the glossary to mark up the term and distinguish it from its definition within the GlossEntry .
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+(1653) <1653> {241582} [241846]: Consider the following book: &lt;book&gt;&lt;title&gt;A Test Book&lt;/title&gt; &lt;preface&gt; &lt;para&gt;There are three chapters in this book: &lt;xref linkend=&quot;c1&quot;&gt;, &lt;xref linkend=&quot;c2&quot;&gt;, and &lt;xref linkend=&quot;c3&quot;&gt;.
+(1654) <1654> {241847} [242314]: &lt;/para&gt; &lt;/preface&gt; &lt;chapter lang=&quot;usen&quot;&gt;&lt;title&gt;English&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;fr&quot;&gt;&lt;title&gt;French&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;dege&quot;&gt;&lt;title&gt;Deutsch&lt;/title&gt; ... &lt;/chapter&gt; &lt;/book&gt; The standard stylesheets render the Preface as something like this: There are three chapters in this book: Chapter 1, Chapter 2, and Chapter 3.
+*****************************************************************
+========================= CLASS #65 =============================
+(1040) <1040> {152851} [152943]: Sets Sets A Set contains two or more Book s. It&#39;s the hierarchical top of DocBook.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #66 =============================
+(1046) <1046> {153661} [153778]: It&#39;s very reasonable to use a local customization layer to impose a more strict ordering for your applications.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #67 =============================
+(1060) <1060> {155758} [155801]: There are five levels of numbered sections.
+(1067) <1067> {156505} [156578]: There are only three levels of numbered section elements in a RefEntry .
+*****************************************************************
+========================= CLASS #68 =============================
+(1216) <1217> {170662} [170705]: Symbol element Token . Token element Type .
+(1242) <1243> {171658} [171701]: Symbol element Token . Token element Type .
+*****************************************************************
+========================= CLASS #69 =============================
+(1285) <1285> {179494} [179756]: You put a singular index marker where the subject it refers to actually occurs in your text: &lt;para&gt; The tiger&lt;indexterm&gt; &lt;primary&gt;Big Cats&lt;/primary&gt; &lt;secondary&gt;Tigers&lt;/secondary&gt;&lt;/indexterm&gt; is a very large cat indeed.
+(1293) <1293> {180495} [180929]: Here&#39;s the previous tiger example recast as starting and ending index terms: &lt;para&gt; The tiger&lt;indexterm id=&quot;tiger-desc&quot; class=&quot;startofrange&quot;&gt; &lt;primary&gt;Big Cats&lt;/primary&gt; &lt;secondary&gt;Tigers&lt;/secondary&gt;&lt;/indexterm&gt; is a very large cat indeed &lt;/para&gt; &lt;para&gt; So much for tigers&lt;indexterm startref=&quot;tiger-desc&quot; class=&quot;endofrange&quot;&gt;.
+(1303) <1303> {182093} [182520]: You can put the following tag anywhere in your document to index that range of text: &lt;indexterm zone=&quot;tiger-desc&quot;&gt; &lt;primary&gt;Big Cats&lt;/primary&gt; &lt;secondary&gt;Tigers&lt;/secondary&gt;&lt;/indexterm&gt; see and see also index entries DocBook also contains markup for index hits that point to other index hits (of the same type such as &quot;See Cats, big&quot; or &quot;See also Lions&quot;).
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #70 =============================
+(1307) <1307> {182833} [182895]: It&#39;s usually the document formatter that builds the index.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #71 =============================
+(1310) <1310> {183081} [184099]: The following example includes some one- and two-level IndexEntry elements (which correspond to the primary and secondary levels in the indexterm s themselves) that begin with the letter D: &lt;!DOCTYPE index PUBLIC &quot;-//OASIS//DTD DocBook V3.1//EN&quot;&gt; &lt;index&gt;&lt;title&gt;Index&lt;/title&gt; &lt;indexdiv&gt;&lt;title&gt;D&lt;/title&gt; &lt;indexentry&gt; &lt;primaryie&gt;database (bibliographic), 253, 255&lt;/primaryie&gt; &lt;secondaryie&gt;structure, 255&lt;/secondaryie&gt; &lt;secondaryie&gt;tools, 259&lt;/secondaryie&gt; &lt;/indexentry&gt; &lt;indexentry&gt; &lt;primaryie&gt;dates (language specific), 179&lt;/primaryie&gt; &lt;/indexentry&gt; &lt;indexentry&gt; &lt;primaryie&gt;DC fonts, &lt;emphasis&gt;172&lt;/emphasis&gt;, 177&lt;/primaryie&gt; &lt;secondaryie&gt;Math fonts, 177&lt;/secondaryie&gt; &lt;/indexentry&gt; &lt;/indexdiv&gt; &lt;/index&gt; Making a Glossary glossaries creating Glossary s, like Bibliography s, are often constructed by hand.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+(1444) <1444> {212819} [212898]: &lt;emphasis&gt;Emphasized&lt;/emphasis&gt; words should be printed in italics.
+(1653) <1653> {241582} [241846]: Consider the following book: &lt;book&gt;&lt;title&gt;A Test Book&lt;/title&gt; &lt;preface&gt; &lt;para&gt;There are three chapters in this book: &lt;xref linkend=&quot;c1&quot;&gt;, &lt;xref linkend=&quot;c2&quot;&gt;, and &lt;xref linkend=&quot;c3&quot;&gt;.
+(1654) <1654> {241847} [242314]: &lt;/para&gt; &lt;/preface&gt; &lt;chapter lang=&quot;usen&quot;&gt;&lt;title&gt;English&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;fr&quot;&gt;&lt;title&gt;French&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;dege&quot;&gt;&lt;title&gt;Deutsch&lt;/title&gt; ... &lt;/chapter&gt; &lt;/book&gt; The standard stylesheets render the Preface as something like this: There are three chapters in this book: Chapter 1, Chapter 2, and Chapter 3.
+*****************************************************************
+========================= CLASS #72 =============================
+(1322) <1324> {186418} [188298]: Here&#39;s an example of a raw bibliographical item, wrapped in the Biblioentry element: &lt;biblioentry xreflabel=&quot;Kites75&quot;&gt; &lt;authorgroup&gt; &lt;author&gt;&lt;firstname&gt;Andrea&lt;/firstname&gt;&lt;surname&gt;Bahadur&lt;/surname&gt;&lt;/author&gt; &lt;author&gt;&lt;firstname&gt;Mark&lt;/&gt;&lt;surname&gt;Shwarek&lt;/&gt;&lt;/author&gt; &lt;/authorgroup&gt; &lt;copyright&gt;&lt;year&gt;1974&lt;/year&gt;&lt;year&gt;1975&lt;/year&gt; &lt;holder&gt;Product Development International Holding N. V.&lt;/holder&gt; &lt;/copyright&gt; &lt;isbn&gt;0-88459-021-6&lt;/isbn&gt; &lt;publisher&gt; &lt;publishername&gt;Plenary Publications International, Inc.&lt;/publishername&gt; &lt;/publisher&gt; &lt;title&gt;Kites&lt;/title&gt; &lt;subtitle&gt;Ancient Craft to Modern Sport&lt;/subtitle&gt; &lt;pagenums&gt;988-999&lt;/pagenums&gt; &lt;seriesinfo&gt; &lt;title&gt;The Family Creative Workshop&lt;/title&gt; &lt;seriesvolnums&gt;1-22&lt;/seriesvolnums&gt; &lt;editor&gt; &lt;firstname&gt;Allen&lt;/firstname&gt; &lt;othername role=middle&gt;Davenport&lt;/othername&gt; &lt;surname&gt;Bragdon&lt;/surname&gt; &lt;contrib&gt;Editor in Chief&lt;/contrib&gt; &lt;/editor&gt; &lt;/seriesinfo&gt; &lt;/biblioentry&gt; The raw data in a Biblioentry is comprehensive to a fault there are enough fields to suit a host of different bibliographical styles, and that is the point. An abundance of data requires processing applications to select, punctuate, order, and format the bibliographical data, and it is unlikely that all the information provided will actually be output. Bibliomixed element All the cooked data in a Bibliomixed entry in a bibliography, on the other hand, is intended to be presented to the reader in the form and sequence in which it is provided.
+(1325) <1327> {188299} [188779]: It even includes punctuation between the fields of data: &lt;bibliomixed&gt; &lt;bibliomset relation=article&gt; &lt;surname&gt;Walsh&lt;/surname&gt;, &lt;firstname&gt;Norman&lt;/firstname&gt;. &lt;title role=article&gt;Introduction to Cascading Style Sheets&lt;/title&gt;. &lt;/bibliomset&gt; &lt;bibliomset relation=journal&gt; &lt;title&gt;The World Wide Web Journal&lt;/title&gt; &lt;volumenum&gt;2&lt;/volumenum&gt;&lt;issuenum&gt;1&lt;/issuenum&gt;.
+*****************************************************************
+========================= CLASS #73 =============================
+(1348) <1348> {191833} [192017]: If you&#39;re working with a document that you discover has many errors, the -f option offers a handy way to direct the errors to a file so they don&#39;t all scroll off your screen.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #74 =============================
+(1358) <1358> {193507} [193695]: For example, the parser may suggest that you can correct out of context data by adding another element, when in fact it&#39;s obvious to human eyes that the problem is a missing end tag.
+(1368) <1368> {198072} [198129]: That&#39;s because they aren&#39;t maintained by OASIS .
+*****************************************************************
+========================= CLASS #75 =============================
+(1367) <1367> {196196} [198070]: In this case, there&#39;s nothing wrong with the document, but the catalog that&#39;s been specified is missing the public identifiers for the ISO entity sets: [n:\dbtdg]nsgmls -sv -c examples\errs\cat2 examples\simple.sgm m:\jade\nsgmls.exe:I: SP version &quot;1.3.2&quot; m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:53:65:W: cannot generate system identifier for public text &quot;ISO 8879:1986//ENTITIES Added Math Symbols:Arrow Relations//EN&quot; m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:54:8:E: reference to entity &quot;ISOamsa&quot; for which no system identifier could be generated m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:52:0: entity was defined here m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:60:66:W: cannot generate system identifier for public text &quot;ISO 8879:1986//ENTITIES Added Math Symbols:Binary Operators//EN&quot; m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:61:8:E: reference to entity &quot;ISOamsb&quot; for which no system identifier could be generated m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:59:0: entity was defined here m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:67:60:W: cannot generate system identifier for public text &quot;ISO 8879:1986//ENTITIES Added Math Symbols:Delimiters//EN&quot; m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:68:8:E: reference to entity &quot;ISOamsc&quot; for which no system identifier could be generated m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:66:0: entity was defined here m:\jade\nsgmls.exe:n:/share/sgml/docbook/3.1/dbcent.mod:74:67:W: cannot generate system identifier for public text &quot;ISO 8879:1986//ENTITIES Added Math Symbols:Negated Relations//EN&quot; ... entity sets locating The ISO entity sets are required by the DocBook , but they are not distributed with it.
+(1371) <1371> {198515} [198832]: [n:\dbtdg] nsgmls -sv -c \share\sgml\catalog examples\errs\badpcdata.sgm m:\jade\nsgmls.exe:I: SP version &quot;1.3.2&quot; m:\jade\nsgmls.exe:examples\errs\badpcdata.sgm:9:0:E: character data is not allowed here Chapter element errors, character data Chapter s aren&#39;t allowed to contain character data directly.
+(1390) <1390> {203560} [203885]: [n:\dbtdg]nsgmls -sv -c \share\sgml\catalog examples\errs\badent.sgm m:\jade\nsgmls.exe:I: SP version &quot;1.3.2&quot; m:\jade\nsgmls.exe:examples\errs\badent.sgm:10:26:E: general entity &quot;xyzzy&quot; not defined and no default entity More often than not, you&#39;ll see this when you misspell a character entity name.
+*****************************************************************
+========================= CLASS #76 =============================
+(1377) <1381> {199835} [201529]: [n:\dbtdg]nsgmls -sv -c \share\sgml\catalog examples\errs\misspell2.sgm m:\jade\nsgmls.exe:I: SP version &quot;1.3.2&quot; m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:2:35:E: end tag for element &quot;TITEL&quot; which is not open m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:3:5:E: document type does not allow element &quot;PARA&quot; here; missing one of &quot;FOOTNOTE&quot;, &quot;MSGTEXT&quot; start-tag m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:9:5:E: document type does not allow element &quot;PARA&quot; here; missing one of &quot;FOOTNOTE&quot;, &quot;MSGTEXT&quot; start-tag m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:15:5:E: document type does not allow element &quot;PARA&quot; here; missing one of &quot;FOOTNOTE&quot;, &quot;MSGTEXT&quot; start-tag m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:21:9:E: end tag for &quot;TITLE&quot; omitted, but OMITTAG NO was specified m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:2:9: start tag was here m:\jade\nsgmls.exe:examples\errs\misspell2.sgm:21:9:E: end tag for &quot;CHAPTER&quot; which is not finished These are pretty easy to spot as well, but look at how confused the parser became. From the parser&#39;s point of view, failure to close the open Title element means that all the following elements appear out of context. Out of Context Start Tag start tags errors out of context tags context errors Sometimes the problem isn&#39;t spelling, but placing a tag in the wrong context. When this happens, the parser tries to figure out what it can add to your document to make it valid. Then it proceeds as if it had seen what was added in order to recover from the error seen, which can cause future errors.
+(1382) <1386> {201532} [202558]: [n:\dbtdg]nsgmls -sv -c \share\sgml\catalog examples\errs\badstarttag.sgm m:\jade\nsgmls.exe:I: SP version &quot;1.3.2&quot; m:\jade\nsgmls.exe:examples\errs\badstarttag.sgm:9:12:E: document type does not allow element &quot;TITLE&quot; here; missing one of &quot;CALLOUTLIST&quot;, &quot;SEGMENTEDLIST&quot;, &quot;VARIABLELIST&quot;, &quot;CAUTION&quot;, &quot;IMPORTANT&quot;, &quot;NOTE&quot;, &quot;TIP&quot;, &quot;WARNING&quot;, &quot;BLOCKQUOTE&quot;, &quot;EQUATION&quot;, &quot;EXAMPLE&quot;, &quot;FIGURE&quot;, &quot;TABLE&quot; start-tag titles formal elements errors paragraphs titles In this example, we probably wanted a FormalPara , so that we could have a title on the paragraph. But note that the parser didn&#39;t suggest this alternative. The parser only tries to add additional elements, rather than rename elements that it&#39;s already seen. Missing End Tag end tags missing, errors Leaving out an end tag is a lot like an out of context start tag. In fact, they&#39;re really the same error.
+*****************************************************************
+========================= CLASS #77 =============================
+(1388) <1388> {202707} [203446]: [n:\dbtdg]nsgmls -sv -c \share\sgml\catalog examples\errs\noendtag.sgm m:\jade\nsgmls.exe:I: SP version &quot;1.3.2&quot; m:\jade\nsgmls.exe:examples\errs\noendtag.sgm:14:5:E: document type does not allow element &quot;PARA&quot; here; missing one of &quot;FOOTNOTE&quot;, &quot;MSGTEXT&quot;, &quot;CAUTION&quot;, &quot;IMPORTANT&quot;, &quot;NOTE&quot;, &quot;TIP&quot;, &quot;WARNING&quot;, &quot;BLOCKQUOTE&quot;, &quot;INFORMALEXAMPLE&quot; start-tag m:\jade\nsgmls.exe:examples\errs\noendtag.sgm:20:9:E: end tag for &quot;PARA&quot; omitted, but OMITTAG NO was specified m:\jade\nsgmls.exe:examples\errs\noendtag.sgm:9:0: start tag was here In this case, the parser figured out that the best thing it could do is end the paragraph.
+(1407) <1407> {206424} [207307]: What I mean by that is that an parser reads a stream of bytes: &quot;&lt;&quot; &quot;?&quot; &quot;x&quot; &quot;m&quot; &quot;l&quot; &quot; &quot; &quot;v&quot; &quot;e&quot; ... &quot;&lt;&quot; &quot;!&quot; &quot;D&quot; &quot;O&quot; &quot;C&quot; &quot;T&quot; &quot;Y&quot; &quot;P&quot; &quot;E&quot; &quot; &quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; ... &quot;&lt;&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot; &quot; &quot;i&quot; &quot;d&quot; &quot;=&quot; &quot;&#39;&quot; &quot;f&quot; &quot;o&quot; &quot;o&quot; &quot;&#39;&quot; &quot;&gt;&quot; ... &quot;&lt;&quot; &quot;/&quot; &quot;b&quot; &quot;o&quot; &quot;o&quot; &quot;k&quot; &quot;&gt;&quot; interprets them as a stream of characters (which may change the interpretation of some sequences of bytes) and constructs some representation of the document.
+*****************************************************************
+========================= CLASS #78 =============================
+(1533) <1533> {224239} [224333]: (attribute-string &quot; attr &quot; nd ) Returns the value of the attr attribute of nd .
+(1534) <1534> {224335} [224439]: (inherited-attribute-string &quot; attr &quot; nd ) Returns the value of the attr attribute of nd .
+*****************************************************************
+========================= CLASS #79 =============================
+(1633) <1636> {236767} [238226]: Writing Your Own Driver A basic driver file looks like this: &lt;!DOCTYPE style-sheet PUBLIC &quot;-//James Clark//DTD DSSSL Style Sheet//EN&quot; [ &lt;!ENTITY dbstyle PUBLIC &quot;-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN&quot; CDATA DSSSL&gt; ]&gt; &lt;style-sheet&gt; &lt;style-specification use=&quot;docbook&quot;&gt; &lt;style-specification-body&gt; ;; your changes go here... &lt;/style-specification-body&gt; &lt;/style-specification&gt; &lt;external-specification id=&quot;docbook&quot; document=&quot;dbstyle&quot;&gt; &lt;/style-sheet&gt; public identifiers Modular DocBook Stylesheets Modular DocBook Stylesheets public identifiers There are two public identifiers associated with the Modular DocBook Stylesheets: -//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN -//Norman Walsh//DOCUMENT DocBook HTML Stylesheet//EN printing stylesheets HTML stylesheets selecting catalog files Open (SGML) The former selects the print stylesheet and the latter selects the stylesheet. There is an Open catalog file in the distribution that maps these public identifiers to the stylesheet files. You can add your own definitions, or redefinitions, of stylesheet rules and parameters so that ;; your changes go here... occurs in the previous example. driver files example For a concrete example of a driver file, see plain.dsl in the docbook/print directory in the stylesheet distribution (or on the CD-ROM ).
+(1650) <1653> {240365} [241846]: The following driver makes German the default language: &lt;!DOCTYPE style-sheet PUBLIC &quot;-//James Clark//DTD DSSSL Style Sheet//EN&quot; [ &lt;!ENTITY dbstyle PUBLIC &quot;-//Norman Walsh//DOCUMENT DocBook Print Stylesheet//EN&quot; CDATA DSSSL&gt; ]&gt; &lt;style-sheet&gt; &lt;style-specification use=&quot;docbook&quot;&gt; &lt;style-specification-body&gt; (define %default-language% &quot;dege&quot;) &lt;/style-specification-body&gt; &lt;/style-specification&gt; &lt;external-specification id=&quot;docbook&quot; document=&quot;dbstyle&quot;&gt; &lt;/style-sheet&gt; %gentext-language% There are two other settings that can be changed only in a driver. Both of these settings are turned off in the distributed stylesheet: %gentext-language% If a language code is specified in %gentext-language% , then that language will be used for all generated text, regardless of any lang attribute settings in the document. %gentext-use-xref-language% %gentext-use-xref-language% cross references languages, changing (stylesheets) If turned on (defined as #t ), then the stylesheets will generate the text associated with a cross reference using the language of the target, not the current language. Consider the following book: &lt;book&gt;&lt;title&gt;A Test Book&lt;/title&gt; &lt;preface&gt; &lt;para&gt;There are three chapters in this book: &lt;xref linkend=&quot;c1&quot;&gt;, &lt;xref linkend=&quot;c2&quot;&gt;, and &lt;xref linkend=&quot;c3&quot;&gt;.
+*****************************************************************
+========================= CLASS #80 =============================
+(1644) <1644> {239184} [239242]: summarizes the language codes for the supported languages.
+(1649) <1649> {240306} [240364]: summarizes the language codes for the supported languages.
+*****************************************************************
+========================= CLASS #81 =============================
+(1646) <1646> {239299} [240204]: French language chapter, example The following chapter uses text generated in French: &lt;chapter lang=&quot;fr&quot;&gt;&lt;title&gt;B tises&lt;/title&gt; &lt;para&gt;Pierre qui roule n&#39;amasse pas de mousse.&lt;/para&gt; &lt;/chapter&gt; DocBook Stylesheet Language Codes Language Code Language af Afrikaans ca Catalan cs Czech da Danish de German el Greek en English es Spanish et Estonian eu Basque fi Finnish fr French he Hebrew hu Hungarian id Indonesian it Italian ja Japanese ko Korean nl Dutch nn Nyorsk no Norwegian pl Polish pt Portuguese pt-br Portuguese (Brazil) ro Romanian ru Russian sk Slovak sl Slovenian sv Swedish th Thai tr Turkish uk Ukranian xh Xhosa zh-cn Chinese (Continental) zh-tw Chinese (Traditional) Changing the default language languages default, changing driver files language, changing default If no lang attribute is specified, the default language is used.
+(1653) <1653> {241582} [241846]: Consider the following book: &lt;book&gt;&lt;title&gt;A Test Book&lt;/title&gt; &lt;preface&gt; &lt;para&gt;There are three chapters in this book: &lt;xref linkend=&quot;c1&quot;&gt;, &lt;xref linkend=&quot;c2&quot;&gt;, and &lt;xref linkend=&quot;c3&quot;&gt;.
+(1654) <1654> {241847} [242314]: &lt;/para&gt; &lt;/preface&gt; &lt;chapter lang=&quot;usen&quot;&gt;&lt;title&gt;English&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;fr&quot;&gt;&lt;title&gt;French&lt;/title&gt; ... &lt;/chapter&gt; &lt;chapter lang=&quot;dege&quot;&gt;&lt;title&gt;Deutsch&lt;/title&gt; ... &lt;/chapter&gt; &lt;/book&gt; The standard stylesheets render the Preface as something like this: There are three chapters in this book: Chapter 1, Chapter 2, and Chapter 3.
+*****************************************************************
+========================= CLASS #82 =============================
+(1751) <1751> {256978} [257076]: Here is an example of a simple XSL stylesheet applied to a simple file to generate HTML output.
+(1843) <1843> {268051} [268074]: Generating HTML output.
+*****************************************************************
+========================= CLASS #83 =============================
+(1764) <1764> {258336} [258634]: Fortunately, you can let other templates take care of those elements, so your XSL template for &lt;para&gt; can be quite simple: The &lt;xsl:template&gt; element starts a new template, and its match attribute indicates where to apply the template, in this case to any &lt;para&gt; elements.
+(1770) <1770> {259312} [259401]: The match attribute of &lt;xsl:template&gt; provides that context for most templates.
+*****************************************************************
+========================= CLASS #84 =============================
+(1765) <1765> {258635} [258748]: The template says to output a literal p string and then execute the &lt;xsl:apply-templates/&gt; instruction.
+(1767) <1767> {258892} [259033]: If each template in the stylesheet includes an &lt;xsl:apply-templates/&gt; instruction, then all descendents will eventually be processed.
+*****************************************************************
+========================= CLASS #85 =============================
+(1775) <1775> {259951} [260145]: The match attribute value formalpara/title in the second template is an XPath expression indicating a &lt;title&gt; element that is an immediate child of a &lt;formalpara&gt; element.
+(1776) <1776> {260146} [260229]: This distinguishes such titles from other &lt;title&gt; elements used in DocBook.
+*****************************************************************
+========================= CLASS #86 =============================
+(1786) <1786> {261394} [261598]: When the same mode name is used in &lt;xsl:apply-templates/&gt; , it acts as a filter to narrow the selection of templates to only those selected by the match expression and that have that mode name.
+(1851) <1851> {268992} [269086]: There it uses &lt;xsl:apply-templates/&gt; to recursively process the entire input document.
+*****************************************************************
+========================= CLASS #87 =============================
+(1800) <1800> {263149} [263367]: The main difference between these two elements is that a param&#39;s value acts as a default value that can be overridden when a template is called using a &lt;xsl:with-param&gt; element as in the last example above.
+(1835) <1835> {267004} [267105]: To pass a value to another template, you pass a parameter using the &lt;xsl:with-param&gt; element.
+*****************************************************************
+========================= CLASS #88 =============================
+(1846) <1847> {268258} [268540]: That is the master stylesheet file that uses &lt;xsl:include&gt; to pull in the component files it needs to assemble a complete stylesheet for producing HTML. The way the DocBook stylesheet generates HTML is to apply templates that output a mix of text content and HTML elements.
+(1875) <1876> {271535} [271800]: That is the master stylesheet file that uses &lt;xsl:include&gt; to pull in the component files it needs to assemble a complete stylesheet for producing formatting objects. Generating a formatting objects file is only half the process of producing typeset output.
+*****************************************************************
+========================= CLASS #89 =============================
+(1887) <1887> {273463} [273620]: A driver file consists mostly of a bunch of &lt;xsl:include&gt; instructions to pull in the component templates, and then defines some top-level templates.
+(1893) <1893> {274146} [274195]: Of the two, &lt;xsl:include&gt; is the simpler.
+*****************************************************************
+========================= CLASS #90 =============================
+(1892) <1892> {274015} [274145]: Stylesheet inclusion vs. importing XSL actually provides two inclusion mechanisms: &lt;xsl:include&gt; and &lt;xsl:import&gt; .
+(1893) <1893> {274146} [274195]: Of the two, &lt;xsl:include&gt; is the simpler.
+(1911) <1911> {276211} [276367]: Customizing with &lt;xsl:import&gt; There is currently one example of customizing with &lt;xsl:import&gt; in the HTML version of the DocBook stylesheets.
+*****************************************************************
+========================= CLASS #91 =============================
+(1897) <1897> {274558} [274650]: In contrast, &lt;xsl:import&gt; lets you manage the precedence of templates and variables.
+(1911) <1911> {276211} [276367]: Customizing with &lt;xsl:import&gt; There is currently one example of customizing with &lt;xsl:import&gt; in the HTML version of the DocBook stylesheets.
+*****************************************************************
+========================= CLASS #92 =============================
+(1914) <1914> {276575} [276685]: In the driver file xtchunk.xsl , the first instruction is &lt;xsl:import href=&quot;docbook.xsl&quot;/&gt; .
+(1947) <1947> {280729} [280944]: Instead of using &lt;xsl:import href=&quot;docbook.xsl&quot;/&gt; , you copy that file to a new name and rewrite any of the &lt;xsl:include/&gt; instructions to assemble a custom collection of stylesheet modules.
+*****************************************************************
+========================= CLASS #93 =============================
+(1925) <1925> {277841} [277979]: Near the end of the list of includes in the main DocBook driver file is the instruction &lt;xsl:include href=&quot;param.xsl&quot;/&gt; .
+(1940) <1940> {279765} [279899]: Then your importing stylesheet can pull in your list templates with a &lt;xsl:include href=&quot;mylists.xsl&quot;/&gt; instruction.
+*****************************************************************
+========================= CLASS #94 =============================
+(2103) <2103> {303503} [303923]: The simplest way to use the new is to point to it with a system identifier: Java Math class absolute value (numbers), computing &lt;!DOCTYPE chapter SYSTEM &quot;/path/to/mydocbk.dtd&quot;&gt; &lt;chapter&gt;&lt;title&gt;My Chapter&lt;/title&gt; &lt;para&gt; The Java &lt;classname&gt;Math&lt;/classname&gt; class provides a &lt;methodname&gt;abs&lt;/methodname&gt; method to compute absolute value of a number.
+(2104) <2104> {303924} [304813]: &lt;/para&gt; &lt;/chapter&gt; public identifiers DocBook DTD customization layer If you plan to use your customization layer in many documents, or exchange it with interchange partners, consider giving your its own public identifier, as described in catalog files public identifier, adding In order to use the new public identifier, you must add it to your catalog: PUBLIC &quot;-//Your Organization//DTD DocBook V3.1-Based Extension V1.0//EN&quot; &quot;/share/sgml/mydocbk.dtd&quot; and use that public identifier in your documents: &lt;!DOCTYPE chapter PUBLIC &quot;-//Your Organization//DTD DocBook V3.1-Based Extension V1.0//EN&quot;&gt; &lt;chapter&gt;&lt;title&gt;My Chapter&lt;/title&gt; &lt;para&gt; The Java &lt;classname&gt;Math&lt;/classname&gt; class provides a &lt;methodname&gt;abs&lt;/methodname&gt; method to compute absolute value of a number.
+*****************************************************************
+========================= CLASS #95 =============================
+(2151) <2151> {311570} [311751]: Removing Admonitions (First Attempt: Incorrect) Because the parameter entity tabentry.mix defines the mixture of elements allowed in table entries, you should remove admonitions.
+(2155) <2155> {312184} [312306]: Removing Admonitions (Second Attempt: Incorrect) Declaring tabentry.mix after the has been loaded removes the errors.
+*****************************************************************
+========================= CLASS #96 =============================
+(2238) <2238> {322991} [323149]: element elements hierarchical structure elements, defining empty elements start tags empty element Elements define the hierarchical structure of a document.
+(2240) <2240> {323235} [323292]: Empty elements have only a start tag and have no content.
+*****************************************************************
+========================= CLASS #97 =============================
+(2248) <2248> {324563} [324980]: external subset external subset document type declaration external subset public identifiers external subset system identifiers external subset declarations document type declaration Element, attribute, and other declarations that compose (part of) a document type definition that are stored in an external entity, and referenced from a document&#39;s document type declaration using a public or system identifier.
+(2262) <2262> {327174} [327450]: internal subset internal subset document type declaration internal subset declarations document type declaration Element, attribute, and other declarations that compose (part of) a document type definition that are stored in a document, within the document type declaration.
+*****************************************************************
+========================= CLASS #98 =============================
+(2298) <2298> {332841} [333054]: DocBook The Definitive Guide Norman Walsh Leonard Muellner Bob Stayton Frank Willison David Futato O&#39;Reilly Media, Inc. Beijing Cambridge Farnham Köln Paris Sebastopol Taipei Tokyo October 1999: First Edition.
+(2305) <2305> {333878} [333938]: O&#39;Reilly Media, Inc. is independent of Sun Microsystems.
+*****************************************************************
+========================= CLASS #99 =============================
+(2300) <2300> {333188} [333243]: Portions Copyright © 1999-2003 O&#39;Reilly Media, Inc.
+(2305) <2305> {333878} [333938]: O&#39;Reilly Media, Inc. is independent of Sun Microsystems.
+*****************************************************************
+========================= CLASS #100 =============================
+(2303) <2303> {333485} [333611]: Nutshell Handbook, the Nutshell Handbook logo, and the O&#39;Reilly logo are registered trademarks of O&#39;Reilly Media, Inc.
+(2305) <2305> {333878} [333938]: O&#39;Reilly Media, Inc. is independent of Sun Microsystems.
+*****************************************************************
+========================= CLASS #101 =============================
+(2304) <2304> {333612} [333877]: The association between the image of a duck and the topic of DocBook is a trademark of O&#39;Reilly Media, Inc. Java and all Java-based trademarks and logos are trademarks or registered trademarks of Sun Microsystems, Inc., in the United States and other countries.
+(2305) <2305> {333878} [333938]: O&#39;Reilly Media, Inc. is independent of Sun Microsystems.
+*****************************************************************

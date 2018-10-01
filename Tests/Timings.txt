@@ -1,0 +1,25 @@
+
+DocBook_Definitive_Guide.pxml:
+
+real	5m16.123s
+user	5m14.589s
+sys	0m1.136s
+
+Linux_Kernel_Documentation.pxml:
+
+real	16m50.975s
+user	16m47.136s
+sys	0m2.419s
+
+SVNBook.pxml:
+
+real	76m42.710s
+user	76m34.383s
+sys	0m5.559s
+
+Zend_Manual.nocode.pxml:
+
+real	66m19.620s
+user	66m13.613s
+sys	0m3.159s
+
